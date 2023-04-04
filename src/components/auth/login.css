@@ -1,0 +1,19 @@
+.password-input {
+    position: relative;
+}
+
+.icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.block {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+

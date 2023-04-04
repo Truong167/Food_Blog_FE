@@ -1,0 +1,15 @@
+.wrapper {
+    margin-top: 20px;
+}
+
+.container {
+    display: grid;
+    margin-top: 20px;
+    grid-template-columns: auto auto auto auto;
+}
+
+@media (max-width: 476px){
+    .container {
+        grid-template-columns: auto;
+    }
+}

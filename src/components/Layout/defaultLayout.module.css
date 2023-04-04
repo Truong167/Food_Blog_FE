@@ -1,0 +1,21 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    background-color: #f8f6f2;
+    width: 100%;
+    padding-top: 70px;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 30px;
+}
+
+.content {
+    padding: 0 24px;
+    width: 990px;
+    min-height: 500px;
+}

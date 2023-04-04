@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    column-gap: 3rem;
+}
+
+.content, .active { 
+    display: flex;
+    text-decoration: none;
+}
+
+.content {
+    color: rgba(22, 24, 35, 0.8);
+}
+
+.active {
+    color: #FF9933;
+}
+
+.content:hover {
+    color: rgba(22, 24, 35, 0.8);
+}
+
+.active:hover {
+    color: #FF9933;
+}
+
+.icon {
+    font-size: 1.3rem;
+    margin-right: 8px;
+    padding-top: 2px;
+}

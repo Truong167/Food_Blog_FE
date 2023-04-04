@@ -1,0 +1,36 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    margin-top: 20px;
+}
+
+.left img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.header {
+    display: flex;
+}
+
+.btn {
+    margin-left: 20px;
+    /* width: 120px; */
+}
+
+.detail {
+    display: grid;
+    grid-template-columns: 100px 150px 190px;
+}
+
+.description {
+    margin-top: 10px;
+}

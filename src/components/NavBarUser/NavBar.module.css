@@ -1,0 +1,32 @@
+.wrapper {
+    margin-top: 40px;
+    border-top: 1px solid #ccc;
+}
+
+.nav {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: auto auto auto;
+    column-gap: 40px;
+}
+
+.nav-item span, .active span {
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+.nav-item {
+    opacity: 0.5;
+    border-top: 1px solid transparent;
+}
+
+.nav-item, .active {
+    cursor: pointer;
+    padding-top: 10px;
+}
+
+.active {
+    opacity: 1;
+    cursor: pointer;
+    border-top: 1px solid black;
+}

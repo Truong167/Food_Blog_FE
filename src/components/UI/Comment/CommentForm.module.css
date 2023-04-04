@@ -1,0 +1,53 @@
+.comment-form {
+    margin-top: 10px;
+    display: flex;
+}
+
+.comment-form img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comment-form form {
+    width: 100%;
+    font-size: 1rem;
+    display: flex;
+    position: relative;
+    background-color:  rgba(255,255,255,1);
+    border-radius: 9999px;
+    border: 1px solid;
+    border-color: rgba(236,235,233,1);
+}
+
+.comment-form input {
+    margin-top: 2px;
+    margin-left: 10px;
+    width: 100%;
+    height: 35px;
+    caret-color: #f93;
+    background-color: transparent;
+    outline: 2px solid transparent;
+    border: none;
+}
+
+.comment-form button {
+    width: 40px;
+    border: none;
+    font-size: 1.2rem;
+    background-color: transparent;
+    color: rgba(22, 24, 35, 0.8);
+}
+
+.comment-form input:focus + .comment-send{
+    color: #f93;
+}
+
+.save {
+    width: 100%;
+    border-radius: 10px;
+    height: 220px;
+    background-color: white;
+    padding: 10px;
+}

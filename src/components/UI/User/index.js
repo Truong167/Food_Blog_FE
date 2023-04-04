@@ -1,0 +1,76 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
+import Tippy from '@tippyjs/react/headless';
+import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
+
+import classes from './index.module.css'
+import { imageUrl } from '../../../contexts/constant';
+
+
+const User = (props) => {
+    const [visible, setVisible] = useState(false)
+    const user = props.user
+    // console.log(props.user)
+    let userItem = [
+        {
+            id: 1,
+            title: "Xem trang cá nhân",
+            link: `/user/${user.userId}`,
+            icon: <FontAwesomeIcon icon={faUser} className={classes.icon}/>
+        },
+        {   
+            id: 2,
+            title: "Đăng xuất",
+            link: "/logout",
+            icon: <FontAwesomeIcon icon={faArrowRightFromBracket} className={classes.icon}/>
+        }
+      ];
+    
+      const renderResult = () => (
+        <div className={classes["menu-list"]} tabIndex="-1">
+            <div className={classes["menu-poper"]}>
+                <div className={classes["menu-body"]}>
+                    {userItem.map(item => {
+                        return (
+                            <section key={item.id} className={classes["menu-item"]}>
+                                <NavLink to={item.link} className={classes.content}>
+                                    {item.icon}
+                                    <span>{item.title}</span>
+                                </NavLink>
+                            </section>
+                        )
+                    })}
+                </div>
+                
+            </div>
+        </div>
+            
+    )
+
+    const handleClick = () => {
+        setVisible(!visible)
+    }
+    const handleClickOutSide = () => {
+        setVisible(false)
+    }
+  return (
+    <Tippy
+            delay={[0, 500]}
+            offset={[20, 16]}
+            visible={visible}
+            interactive
+            placement='bottom-end'
+            render={renderResult}
+            onClickOutside={handleClickOutSide}
+        >
+            <div onClick={handleClick} style={{cursor: 'pointer'}}>
+                <img src={`${imageUrl +  user.avatar}`} alt={user.fullName} className={classes["user-img"]}/>
+                <span>{user.fullName}</span>
+              </div>
+        </Tippy>
+  )
+}
+
+export default User

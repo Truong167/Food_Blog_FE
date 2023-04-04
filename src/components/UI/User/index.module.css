@@ -1,0 +1,42 @@
+.user-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.menu-list {
+    width: 180px;
+    background-color: rgba(252,252,251,1);
+    border-radius: 0.25rem;
+    box-shadow: 0px 4px 4px rgba(0,0,0,.04);
+}
+
+.menu-poper {
+    padding-top: 4px;
+    padding-bottom: 4px;
+} 
+
+.menu-item {
+    padding: 8px;
+}
+
+.icon {
+    font-size: 1.3rem;
+    margin-right: 8px;
+    padding-top: 2px;
+}
+
+.content {
+    text-decoration: none;
+    color: rgba(22, 24, 35, 0.8);
+}
+
+.content:hover {
+    color: rgba(22, 24, 35, 0.8);
+}
+
+.menu-item:hover {
+    background-color: rgba(248,246,242,1);
+}

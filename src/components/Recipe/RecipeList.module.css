@@ -1,0 +1,9 @@
+.container {
+    margin-top: 20px;
+    /* display: flex; */
+    overflow: hidden;
+}
+
+.content {
+    display: flex;
+}
