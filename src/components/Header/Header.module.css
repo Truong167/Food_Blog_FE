@@ -21,6 +21,15 @@
     padding-right: 4rem;
 }
 
+.content1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+    padding-left: 4rem;
+    padding-right: 4rem;
+}
+
 
 .image1 {
     width: 32px;
@@ -39,3 +48,19 @@
     border-radius: 50%;
     object-fit: cover;
 }
+
+.btn {
+    color: white;
+    font-size: 1.2rem;
+    min-width: 80px;
+    padding: 2px 20px 6px 20px;
+    background-color: #FF9933;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s;
+    border: none;
+  }
+
+  .btn:hover {
+    opacity: 0.85;
+  }

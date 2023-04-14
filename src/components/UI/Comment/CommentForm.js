@@ -4,7 +4,7 @@ import no_avatar from '../../../assets/images/no_avatar.png'
 import { faReply } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useAuth from '../../../hooks/useAuth'
-import { apiUrl, imageUrl } from '../../../contexts/constant'
+import { apiUrl, imageUrl } from '../../../utils/constant'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 

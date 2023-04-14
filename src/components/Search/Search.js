@@ -8,7 +8,7 @@ import HeadLessTippy from '@tippyjs/react/headless';
 import useDebounce from "../../hooks/useDebounce";
 import classes from './Search.module.css'
 import * as SearchService from "../../services/SearchService";
-import { Link, json } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Search = () => {
     const [searchValue, setSearchValue] = useState('')

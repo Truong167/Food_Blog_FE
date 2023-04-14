@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { apiUrl, imageUrl } from '../../contexts/constant'
+import { apiUrl, imageUrl } from '../../utils/constant'
 import useAuth from '../../hooks/useAuth'
 import Button from '../UI/Button/Button'
 
@@ -43,11 +43,10 @@ const User = () => {
                     <div className={classes.header}>
                         <h3>{userObject.user.fullName}</h3>
                         <div className={classes.btn}>
-                            {check ? (userObject.user.isFollow ? 
+                            {check && (userObject.user.isFollow ? 
                                         <Button color='#FF9933'>Đang theo dõi</Button> : 
                                         <Button>Theo dõi</Button>
-                                    ):
-                                    <Button color='#FF9933'>Chỉnh sửa thông tin</Button>   }    
+                                    )}    
                         </div>
                     </div>
                     <div className={classes.detail}>

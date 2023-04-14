@@ -1,6 +1,6 @@
 .container {
     margin-top: 20px;
-    /* display: flex; */
+    padding-left: 2px;
     overflow: hidden;
 }
 

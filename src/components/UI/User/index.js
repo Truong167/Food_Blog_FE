@@ -1,12 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faUserPen, faLock } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import Tippy from '@tippyjs/react/headless';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 
 import classes from './index.module.css'
-import { imageUrl } from '../../../contexts/constant';
+import { imageUrl } from '../../../utils/constant';
 
 
 const User = (props) => {
@@ -22,6 +22,18 @@ const User = (props) => {
         },
         {   
             id: 2,
+            title: "Chỉnh sửa thông tin",
+            link: "/editUser",
+            icon: <FontAwesomeIcon icon={faUserPen} className={classes.icon}/>
+        },
+        {   
+            id: 3,
+            title: "Đổi mật khẩu",
+            link: "/changePassword",
+            icon: <FontAwesomeIcon icon={faLock} className={classes.icon}/>
+        },
+        {   
+            id: 4,
             title: "Đăng xuất",
             link: "/logout",
             icon: <FontAwesomeIcon icon={faArrowRightFromBracket} className={classes.icon}/>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import classes from './SearchResult.module.css'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import { apiUrl } from '../../../contexts/constant'
+import { apiUrl } from '../../../utils/constant'
 import RecipeItem from '../../Recipe/RecipeItem/RecipeItem'
 
 const SearchResult = () => {

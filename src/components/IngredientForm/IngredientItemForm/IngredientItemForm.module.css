@@ -1,0 +1,51 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 20px;
+    column-gap: 10px;
+    align-items: center;
+}
+
+.input {
+    width: 100%;
+    background-color: rgb(248 246 242/1);
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    outline: 2px solid transparent;
+    border: none;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.icon {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.menu-list {
+    width: 612px;
+    background-color: rgba(252,252,251,1);
+    border-radius: 0.25rem;
+    max-height: 150px;
+    overflow-x: hidden;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.menu-list::-webkit-scrollbar {
+    width: 0 !important;
+    display: none; 
+}
+
+.menu-poper {
+    padding-top: 4px;
+    padding-bottom: 4px;
+} 
+
+.menu-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background-color: rgba(248,246,242,1);
+}

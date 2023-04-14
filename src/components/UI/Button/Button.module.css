@@ -1,7 +1,7 @@
 .btn, .btn1 {
     font-size: 1.2rem;
     min-width: 80px;
-    padding: 4px 8px 6px 8px;
+    padding: 4px 5px 6px 5px;
     background-color: white;
     font-weight: 600;
     border-radius: 8px;
@@ -16,4 +16,5 @@
   
   /* .btn:hover {
     background-color: rgba(240,144,48,1);
+    color: white;
   } */

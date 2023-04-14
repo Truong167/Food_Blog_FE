@@ -1,0 +1,127 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 20px 1fr 25px;
+    column-gap: 10px;
+    margin-bottom: 15px;
+}
+
+.step-index {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    background-color: rgb(133, 133, 131);
+    border-radius: 50%;
+    color: rgb(248 246 242/1);
+}
+
+.step-name {
+    width: 100%;
+    background-color: rgb(248 246 242/1);
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    outline: 2px solid transparent;
+    border: none;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.img {
+    position: relative;
+    background-color: rgb(248 246 242/1);
+    width: 160px;
+    height: 128px;
+}
+
+.img input, .input {
+    inset: 0;
+    position: absolute;
+    display: block;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.camera-icon {
+    position: absolute;
+    left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+    font-size: 1.6rem;
+    opacity: 0.6;
+}
+
+.icon1 {
+    margin-top: 6px;
+    cursor: pointer;
+    opacity: 0.6;
+    font-size: 1.6rem;
+}
+
+.preview {
+    width: 160px;
+    height: 128px;
+    position: relative;
+}
+
+.custom-img {
+    background-color: rgb(0 0 0/0.4);
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10px;
+    position: absolute;
+    right: 10px;
+    bottom: 6px;
+    color: white;
+    border-radius: 8px;
+    padding: 0px 4px;
+}
+
+.icon {
+    padding: 6px;
+    font-size: 0.8rem;
+}
+
+.preview-img {
+    width: 160px;
+    object-fit: cover;
+    height: 128px;
+}
+
+
+.upload, .delete {
+    cursor: pointer;
+    position: relative;
+}
+
+.upload::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 8px;
+    bottom: 10px;
+    width: 1.7px;
+    background-color: rgb(255 255 255/0.6);
+    z-index: 10;
+}
+
+.menu-list {
+    width: 180px;
+    background-color: rgba(252,252,251,1);
+    border-radius: 0.25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.menu-poper {
+    padding-top: 4px;
+    padding-bottom: 4px;
+} 
+
+.menu-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background-color: rgba(248,246,242,1);
+}

@@ -34,3 +34,10 @@ export function formatTime(time) {
     hour = time
     return `${hour} phút` 
 }
+
+export function formatDate1(date) {
+    const [dateValue, time] = date.split(" ")
+    let [day, month, year] = dateValue.split('-')
+    let tmp = `${year + '-' + month + '-' + day}`
+    return tmp
+}

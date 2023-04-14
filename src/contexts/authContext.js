@@ -1,7 +1,7 @@
 import { createContext, useReducer, useEffect } from "react";
 import axios from "axios";
 import { authReducer } from "../reducers/authReducer";
-import { apiUrl, LOCAL_STORAGE_TOKEN_NAME } from "./constant";
+import { apiUrl, LOCAL_STORAGE_TOKEN_NAME } from "../utils/constant";
 import setAuthToken from '../utils/setAuthToken'
 
 
@@ -66,8 +66,51 @@ const AuthContextProvider = ({children}) => {
             return {success: false, message: error.message}
         }
     }
+
+    const editUser = async data => {
+        console.log(data)
+        try {
+          const result = await axios.put(`${apiUrl}/user/update`, data)
+          if(result.data.success){
+              alert('Cập nhật thành công')
+              await loadUser()
+            // return true
+          }
+        } catch (error) {
+          alert(`Cập nhật thất bại: ${error.response.data.message}`)
+          console.log(error)
+        }
+    }
+
+    const sendOtp = async data => {
+        console.log(data)
+        try {
+          const result = await axios.post(`${apiUrl}/auth/sendOtp`, data)
+          if(result.data.success){
+              alert('Gửi OTP thành công')
+            return true
+          }
+        } catch (error) {
+          alert(`Gửi OTP thất bại: ${error.response.data.message}`)
+          console.log(error)
+        }
+    }
+
+    const changePassword = async data => {
+        console.log(data)
+        try {
+          const result = await axios.put(`${apiUrl}/auth/changePassword`, data)
+          if(result.data.success){
+              alert('Đổi mật khẩu thành công')
+            return true
+          }
+        } catch (error) {
+          alert(`Đổi mật khẩu thất bại: ${error.response.data.message}`)
+          console.log(error)
+        }
+    }
     // context data
-    const authContextData = { loginUser, registerUser, authState } 
+    const authContextData = { loginUser, registerUser, authState, editUser, sendOtp, changePassword } 
 
     // return provider
     return (

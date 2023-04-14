@@ -3,11 +3,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import IngredientContextProvider from './contexts/ingredientContext';
+import AuthContextProvider from './contexts/authContext';
+import RecipeContextProvider from './contexts/recipeContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <AuthContextProvider>
+      <IngredientContextProvider>
+        <RecipeContextProvider>
+          <App />
+        </RecipeContextProvider>
+      </IngredientContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 );
 

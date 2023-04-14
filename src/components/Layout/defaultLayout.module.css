@@ -5,6 +5,7 @@
 }
 
 .container {
+    position: relative;
     display: flex;
     background-color: #f8f6f2;
     width: 100%;
@@ -15,7 +16,8 @@
 }
 
 .content {
+    /* position: absolute; */
     padding: 0 24px;
-    width: 990px;
-    min-height: 500px;
+    /* width: 990px; */
+    min-height: 644px;
 }

@@ -2,14 +2,14 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import classes from './defaultLayout.module.css'
 
-function DefaultLayout({ children }) {
+function DefaultLayout({ children, type = 'normal', width = '990px', handleSubmit, text, form }) {
     return (
         <div className={classes.wrapper}>
-            <Header />
+            <Header type={type} handleSubmit={handleSubmit} text={text} form={form}/>
             <div className={classes.container}>
-                <div className={classes.content}>{children}</div>
+                <div className={classes.content} style={{width: width}}>{children}</div>
             </div>
-            <Footer/>
+            {type !== 'myRecipe' && <Footer/>}
         </div>
     );
 }

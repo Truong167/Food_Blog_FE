@@ -3,45 +3,28 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMap , faHeart, faComment, faBookmark } from '@fortawesome/free-regular-svg-icons'
-import { faHandsClapping, faReply } from '@fortawesome/free-solid-svg-icons'
+import { faHandsClapping } from '@fortawesome/free-solid-svg-icons'
 
 import Loading from '../../UI/Loading/Loading'
-import { apiUrl, imageUrl } from '../../../contexts/constant'
+import { apiUrl, imageUrl } from '../../../utils/constant'
 import DetailIngredient from '../../DetailIngredient/DettailIngredient'
 import classes from './RecipeDetail.module.css'
 import no_avatar from '../../../assets/images/no_avatar.png'
 import { formatDate } from '../../../utils/formatDate'
-import useAuth from '../../../hooks/useAuth'
 import Button from '../../UI/Button/Button'
-import useDebounce from '../../../hooks/useDebounce'
 import CommentForm from '../../UI/Comment/CommentForm'
+import { useRecipesContext } from '../../../contexts/recipeContext'
 
 const RecipeDetail = () => {
-    const {authState} = useAuth()
+    const {fetchSingleRecipe, singleRecipe, singleRecipeLoading} = useRecipesContext()
     const [success, setSuccess] = useState(false)
-    const [loading, setLoading] = useState(true)
-    const [recipe, setRecipe] = useState({})
     const [comments, setComments] = useState([])
     const [showMore, setShowMore] = useState(false)
-    const [comment, setComment] = useState('')
     const {id} = useParams()
-    const getRecipe = async (id) => {
-        try {
-          const result = await axios.get(`${apiUrl}/recipe/getRecipe/${id}`)
-          if(result.data.success){
-            console.log(result.data.data)
-            setRecipe(result.data.data)
-            setLoading(false)
-          }
-        } catch (error) {
-          console.log(error)    
-        }
-      }
     const getComment = async (id) => {
       try {
         const result = await axios.get(`${apiUrl}/comment/getCommentOfRecipe/${id}`)
         if(result.data.success){
-          console.log(result.data.data.comment)
           setComments(result.data.data.comment)
         }
       } catch (error) {
@@ -49,20 +32,15 @@ const RecipeDetail = () => {
       }
     }
 
-    const addComment = async () => {
-      try {
-        const result = await axios.post(`${apiUrl}/comment/createComment/${id}`, {comment})
-        if(result.data.success){
-          getComment(id)
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    }
     useEffect(() => {
         getComment(id)
-        getRecipe(id)
-    }, [success])
+        fetchSingleRecipe(id)
+    }, [id, success])
+
+    if(singleRecipeLoading){
+      return <Loading/>
+    }
+
 
     const handleClick = () => {
       setShowMore(!showMore)
@@ -72,58 +50,47 @@ const RecipeDetail = () => {
       setSuccess(success)
     } 
 
-    const handleChange = (e) => {
-      const comment = e.target.value
-        if(!comment.startsWith(' ')) {
-            setComment(comment)
-        } 
-    }
-
-    const createComment = (e) => {
-      e.preventDefault()
-      addComment()
-    }
     return (
       <div>
-            {loading ? <Loading/> : 
+            {/* {loading ? <Loading/> :  */}
                 <div className={classes.container}>
                     <div>
-                    <img src={`${imageUrl + recipe.image}`} className={classes.img} alt={recipe.recipeName}/>
+                    <img src={`${imageUrl + singleRecipe.image}`} className={classes.img} alt={singleRecipe.recipeName}/>
                     <div className={classes.name}>
-                        <h3>{recipe.recipeName}</h3>
+                        <h3>{singleRecipe.recipeName}</h3>
                     </div>
                     <div className={classes.user}>
                         <div className={classes['user-content']}>
-                          <Link to={`/user/${recipe.User.userId}`}>
-                            <img src={`${recipe.User.avatar ? imageUrl + recipe.User.avatar : no_avatar}`} alt={recipe.User.fullName}/>
+                          <Link to={`/user/${singleRecipe.User.userId}`}>
+                            <img src={`${singleRecipe.User.avatar ? imageUrl + singleRecipe.User.avatar : no_avatar}`} alt={singleRecipe.User.fullName}/>
                           </Link>
                             <div>
-                                <Link to={`/user/${recipe.User.userId}`} className={classes.username}>
-                                  <h6>{recipe.User.fullName}</h6>
+                                <Link to={`/user/${singleRecipe.User.userId}`} className={classes.username}>
+                                  <h6>{singleRecipe.User.fullName}</h6>
                                 </Link>
                                 <div>
                                     <FontAwesomeIcon icon={faMap} style={{marginRight: 8}}/>
-                                    <span>Hiện tại đang sống tại {recipe.User.address}</span>
+                                    <span>Hiện tại đang sống tại {singleRecipe.User.address}</span>
                                 </div>
                             </div>
                         </div>
                         <p></p>
-                        {recipe.description && recipe.description.length > 100 ? (showMore ? 
-                          <p>{recipe.description} <span className={classes.btn} onClick={handleClick}>Ẩn bớt</span></p> : 
-                          <p>{recipe.description.substring(0,100)}...<span className={classes.btn} onClick={handleClick}>Xem thêm</span></p>)
-                          : <p>{recipe.description}</p>
+                        {singleRecipe.description && singleRecipe.description.length > 100 ? (showMore ? 
+                          <p>{singleRecipe.description} <span className={classes.btn} onClick={handleClick}>Ẩn bớt</span></p> : 
+                          <p>{singleRecipe.description.substring(0,100)}...<span className={classes.btn} onClick={handleClick}>Xem thêm</span></p>)
+                          : <p>{singleRecipe.description}</p>
                         }
                     </div>
-                    <DetailIngredient detailIngredient={recipe.DetailIngredients} {...recipe}/>
+                    <DetailIngredient detailIngredient={singleRecipe.DetailIngredients} {...singleRecipe}/>
                     <div className={classes.steps}>
                       <h3>Hướng dẫn nấu nướng</h3>
-                      {recipe.Steps.map(item => {
+                      {singleRecipe.Steps.map(item => {
                         return (
                           <div key={item.stepId} className={classes.step}>
                             <span><b>Bước {item.stepIndex}</b></span>
                             <p>{item.description}</p>
                             {item.image && 
-                              <img src={`${imageUrl + item.image}`} className={classes["step-image"]}/>
+                              <img src={`${imageUrl + item.image}`} alt={item.stepId} className={classes["step-image"]}/>
                             }
                           </div>
                         )
@@ -137,7 +104,7 @@ const RecipeDetail = () => {
                       <div className={classes['react-detail']}>
                         <div className={classes.like}>
                           <FontAwesomeIcon icon={faHandsClapping} style={{color: '#ffc83d', marginRight: 4}}/>
-                          {recipe.numberOfLikes}
+                          {singleRecipe.numberOfLikes}
                           </div>
                         <div className={classes.like1}>
                           <FontAwesomeIcon icon={faHeart} style={{color: 'black'}}/>
@@ -192,7 +159,7 @@ const RecipeDetail = () => {
                       <Button color='#45464f'>Báo cáo</Button>
                     </div>
                 </div>
-            }
+            {/* } */}
       </div>
     )
 }

@@ -12,7 +12,6 @@ const DetailIngredient = ({detailIngredient, preparationTime, cookingTime, amoun
         output.push(<p key={item.name} className={classes.line}></p>)
     })
     output.pop()
-    console.log(detailIngredient)
   return (
     <div className={classes.container}>
       <div>

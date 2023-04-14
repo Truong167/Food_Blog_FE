@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiUrl } from '../contexts/constant';
+import { apiUrl } from '../utils/constant';
 // import * as request from '../utils/axiosInstance';
 
 export const search = async (q) => {
