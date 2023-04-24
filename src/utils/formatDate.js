@@ -1,3 +1,4 @@
+import moment from "moment/moment"
 
 export function formatDate(date) {
     let today = new Date(Date.now())
@@ -40,4 +41,15 @@ export function formatDate1(date) {
     let [day, month, year] = dateValue.split('-')
     let tmp = `${year + '-' + month + '-' + day}`
     return tmp
+}
+
+export function formatTime1(date) {
+    let today = new Date(Date.now())
+    let dateFormat = "DD-MM-YYYY HH:mm:ss"
+    let dateObject = moment(date, dateFormat).toDate()
+    let milliseconds = dateObject.getTime() - today.getTime()
+    let totalSeconds = milliseconds / 1000
+    let minutes = Math.floor(totalSeconds / 60)
+    let seconds = Math.floor(totalSeconds % 60)
+    return {minutes, seconds}
 }

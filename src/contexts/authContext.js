@@ -2,6 +2,8 @@ import { createContext, useReducer, useEffect } from "react";
 import axios from "axios";
 import { authReducer } from "../reducers/authReducer";
 import { apiUrl, LOCAL_STORAGE_TOKEN_NAME } from "../utils/constant";
+import 'react-toastify/dist/ReactToastify.css'
+
 import setAuthToken from '../utils/setAuthToken'
 
 
@@ -11,7 +13,9 @@ const AuthContextProvider = ({children}) => {
     const [authState, dispatch] = useReducer(authReducer, {
         authLoading: false,
         isAuthenticated: false,
-        user: null
+        user: null,
+        userInfor: {},
+        userInforLoading: true
     })
 
     const loadUser = async () => {
@@ -51,9 +55,18 @@ const AuthContextProvider = ({children}) => {
             await loadUser()
             return response.data
         } catch (error) {
-            if(error.response.data) return error.response.data
+            if(error.response.data) return error.response
             return {success: false, message: error.message}
         }
+    }
+
+    const logout = async () => {
+        localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME)
+            setAuthToken(null)
+            dispatch({
+                type: 'SET_AUTH',
+                payload: { isAuthenticated: false, user: null }
+        })
     }
 
     const registerUser = async userForm => {
@@ -72,13 +85,31 @@ const AuthContextProvider = ({children}) => {
         try {
           const result = await axios.put(`${apiUrl}/user/update`, data)
           if(result.data.success){
-              alert('Cập nhật thành công')
-              await loadUser()
-            // return true
+            
+            await loadUser()
+            return result.data
           }
         } catch (error) {
-          alert(`Cập nhật thất bại: ${error.response.data.message}`)
-          console.log(error)
+            if(error.response.data) return error.response
+            return {success: false, message: error.message}
+        }
+    }
+
+    const getUser = async (id) => {
+        try {
+            const result = await axios.get(`${apiUrl}/user/getUser1/${id}`)
+            console.log(result)
+            if(result.data.message) {
+                dispatch({
+                    type: 'GET_INFOR',
+                    payload: { userInfor: result.data.data }
+                })
+            }
+        } catch (error) {
+            dispatch({
+                type: 'GET_INFOR',
+                payload: { userInfor: {} }
+            })
         }
     }
 
@@ -87,12 +118,11 @@ const AuthContextProvider = ({children}) => {
         try {
           const result = await axios.post(`${apiUrl}/auth/sendOtp`, data)
           if(result.data.success){
-              alert('Gửi OTP thành công')
-            return true
+            return result.data
           }
         } catch (error) {
-          alert(`Gửi OTP thất bại: ${error.response.data.message}`)
-          console.log(error)
+            if(error.response.data) return error.response
+            return {success: false, message: error.message}
         }
     }
 
@@ -101,16 +131,15 @@ const AuthContextProvider = ({children}) => {
         try {
           const result = await axios.put(`${apiUrl}/auth/changePassword`, data)
           if(result.data.success){
-              alert('Đổi mật khẩu thành công')
-            return true
+            return result.data
           }
         } catch (error) {
-          alert(`Đổi mật khẩu thất bại: ${error.response.data.message}`)
-          console.log(error)
+            if(error.response.data) return error.response
+            return {success: false, message: error.message}
         }
     }
     // context data
-    const authContextData = { loginUser, registerUser, authState, editUser, sendOtp, changePassword } 
+    const authContextData = { loginUser, registerUser, authState, editUser, sendOtp, changePassword, logout, getUser } 
 
     // return provider
     return (

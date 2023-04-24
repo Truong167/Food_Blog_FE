@@ -6,8 +6,11 @@ import { imageUrl } from '../../../utils/constant'
 import no_avatar from '../../../assets/images/no_avatar.png'
 import { formatDate } from '../../../utils/formatDate'
 import { Link } from 'react-router-dom'
+import { useRecipesContext } from '../../../contexts/recipeContext'
 
-const RecipeItem = ({User, date, recipeId, image, isFavorite, recipeName, numberOfLikes}) => {
+const RecipeItem = ({User, date, recipeId, image, isFavorite, recipeName, numberOfLikes, isLiked}) => {
+  const {handleLike, handleDisLike} = useRecipesContext()
+  
   return (
     <div className={classes.container}>
       <Link className={classes.header} to={`/user/${User.userId}`}>
@@ -27,7 +30,10 @@ const RecipeItem = ({User, date, recipeId, image, isFavorite, recipeName, number
       <div>
         <div>
           <button className={classes.btn}>
-            {isFavorite ? <FontAwesomeIcon className={classes.active} icon={faLiked}/> : <FontAwesomeIcon icon={faHeart}/>}
+            {isFavorite || isLiked ? <FontAwesomeIcon className={classes.active} icon={faLiked} onClick={() => handleDisLike(recipeId, 'main')}/> 
+              : 
+              <FontAwesomeIcon icon={faHeart} onClick={() => handleLike(recipeId, 'main')}/>
+            }
           </button>
           <span>{numberOfLikes}</span>
         </div>

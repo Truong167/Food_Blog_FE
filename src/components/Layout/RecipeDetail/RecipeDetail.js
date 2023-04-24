@@ -112,11 +112,11 @@ const RecipeDetail = () => {
                       </div>
                     </div>
                     <div className={classes.comment}>
+                      <div className={classes["comment-container"]}>
                       <div className={classes.header}>
                           <FontAwesomeIcon icon={faComment} className={classes.icon}/>
                           <h3>Bình luận</h3>
                       </div>
-                      <div className={classes["comment-container"]}>
                           <div className={classes["comment-content-block"]}>
                             {comments.length > 0 ? comments.map(item => {
                               return (

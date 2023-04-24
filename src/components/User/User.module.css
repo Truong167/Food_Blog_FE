@@ -28,7 +28,7 @@
 
 .detail {
     display: grid;
-    grid-template-columns: 100px 150px 190px;
+    grid-template-columns: 140px 1fr 1fr;
 }
 
 .description {

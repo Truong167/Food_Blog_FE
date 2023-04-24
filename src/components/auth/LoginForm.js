@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'
 import { useState } from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
+import { ToastContainer, toast } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
+
 import './login.css'
 import useAuth from "../../hooks/useAuth"
 
@@ -20,9 +23,28 @@ const LoginForm = () => {
     try {
       const loginData = await loginUser(loginForm)
       if(loginData.success) {
-        alert(loginData.message)
+        toast.success('Đăng nhập thành công', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: true
+        })
       } else {
-        alert(loginData.message)
+        if(loginData.status === 418) {
+          toast.warning('Vui lòng nhập đầy đủ thông tin', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: true
+          })
+        } else if(loginData.status === 424) {
+          toast.warning('Tài khoản không tồn tại', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: true
+          })
+        } else if(loginData.status === 425) {
+          toast.warning('Sai mật khẩu', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: true
+          })
+        }
+
       }
     } catch (error) {
       console.log(error)
@@ -47,7 +69,6 @@ const LoginForm = () => {
               type='text'
               placeholder='Tên đăng nhập'
               name='accountName'
-              required
               value={accountName}
               onChange={onChangeAccountName}
           />
@@ -57,7 +78,6 @@ const LoginForm = () => {
               type={showPassword ? 'password' : 'text'}
               placeholder='Mật khẩu'
               name='password'
-              required
               value={password}
               onChange={onChangePassword}
           />
@@ -80,6 +100,7 @@ const LoginForm = () => {
       </Button>
     </Link>
   </p>
+  <ToastContainer/>
     </>
   )
 }

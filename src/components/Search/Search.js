@@ -62,9 +62,18 @@ const Search = () => {
         if(localStorage['search']){
             let a = localStorage.getItem('search')
             arr = JSON.parse(a)
-            arr.unshift(name)
-            setHistory(arr)
-            localStorage.setItem('search', JSON.stringify(arr))
+            let check = true
+            for(let i = 0; i < 3; i++){
+                if(arr[i] === name){
+                    check = false
+                    break
+                }
+            }
+            if(check){
+                arr.unshift(name)
+                setHistory(arr)
+                localStorage.setItem('search', JSON.stringify(arr))
+            }
         } else {
             arr.unshift(name)
             setHistory(arr)

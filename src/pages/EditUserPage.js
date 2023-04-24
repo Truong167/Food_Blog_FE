@@ -1,13 +1,17 @@
 import { useState } from "react"
+import { ToastContainer, toast } from "react-toastify"
+
+
 import DefaultLayout from "../components/Layout/DefaultLayout"
 import UserForm from "../components/User/UserForm/UserForm"
 import useAuth from "../hooks/useAuth"
 import { imageUrl } from "../utils/constant"
+import { formatDate1 } from "../utils/formatDate"
 
 
 const EditUserPage = () => {
   const {authState: {user}, editUser} = useAuth()
-  const [infor, setInfor] = useState({...user, avatar: `${imageUrl+user.avatar}`, user: ''})
+  const [infor, setInfor] = useState({...user, avatar: `${imageUrl+user.avatar}`, user: '', dateOfBirth: formatDate1(user.dateOfBirth)})
   const handleOnChange = (e) => {
     setInfor({...infor, [e.target.name]: e.target.value})
   }
@@ -20,7 +24,7 @@ const EditUserPage = () => {
   }
   console.log(infor)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const frmData = new FormData()
     frmData.append('fullName', infor.fullName)
@@ -29,7 +33,35 @@ const EditUserPage = () => {
     frmData.append('email', infor.email)
     frmData.append('introduce', infor.introduce)
     frmData.append('user', infor.user)
-    editUser(frmData)
+    const result = await editUser(frmData)
+    if(result.success){
+      toast.success('Cập nhật thông tin thành công', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: true
+      })
+    } else {
+      if(result.status === 440){
+        toast.warning('Có lỗi khi tải hình', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: true
+        })
+      } else if(result.status === 418){
+        toast.warning('Vui lòng nhập đầy đủ thông tin', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: true
+        })
+      } else if(result.status === 422){
+        toast.warning('Email đã tồn tại', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: true
+        })
+      } else if(result.status === 500){
+        toast.warning('Lỗi không xác định', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: true
+        })
+      }
+    }
 
   }
   return (
@@ -37,6 +69,7 @@ const EditUserPage = () => {
       <form id="edit-user" encType='multipart/form-data'>
         <UserForm handleOnChange={handleOnChange} infor={infor} handleOnChangeUserImage={handleOnChangeUserImage} handleDeleteUserImage={handleDeleteUserImage}/>
       </form>
+      <ToastContainer />
     </DefaultLayout>
   )
 }

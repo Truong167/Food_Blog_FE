@@ -1,5 +1,5 @@
 export const recipeReducer = (state, action) => {
-    const {type, payload: {recipesIngre, recipesPopular, recipesFollow, singleRecipe}} = action
+    const {type, payload: {recipesIngre, recipesPopular, recipesFollow, singleRecipe, myRecipe, recipeOfUser}} = action
     switch(type){
         case 'GET_RECIPE_BY_INGREDIENT':
             return {
@@ -25,6 +25,18 @@ export const recipeReducer = (state, action) => {
                 singleRecipeLoading: false,
                 singleRecipe,
             }
+        case 'GET_MY_RECIPE':
+            return {
+                ...state,
+                myRecipeLoading: false,
+                myRecipe,
+            }
+        case 'GET_RECIPE_BY_USERID':
+            return {
+                ...state,
+                recipeOfUserLoading: false,
+                recipeOfUser,
+            }    
         default:
             return state
     }

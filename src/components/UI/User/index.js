@@ -7,9 +7,11 @@ import { useState } from 'react';
 
 import classes from './index.module.css'
 import { imageUrl } from '../../../utils/constant';
+import useAuth from '../../../hooks/useAuth';
 
 
 const User = (props) => {
+    const {logout} = useAuth()
     const [visible, setVisible] = useState(false)
     const user = props.user
     // console.log(props.user)
@@ -18,25 +20,29 @@ const User = (props) => {
             id: 1,
             title: "Xem trang cá nhân",
             link: `/user/${user.userId}`,
-            icon: <FontAwesomeIcon icon={faUser} className={classes.icon}/>
+            icon: <FontAwesomeIcon icon={faUser} className={classes.icon}/>,
+            onClick: ''
         },
         {   
             id: 2,
             title: "Chỉnh sửa thông tin",
             link: "/editUser",
-            icon: <FontAwesomeIcon icon={faUserPen} className={classes.icon}/>
+            icon: <FontAwesomeIcon icon={faUserPen} className={classes.icon}/>,
+            onClick: ''
         },
         {   
             id: 3,
             title: "Đổi mật khẩu",
             link: "/changePassword",
-            icon: <FontAwesomeIcon icon={faLock} className={classes.icon}/>
+            icon: <FontAwesomeIcon icon={faLock} className={classes.icon}/>,
+            onClick: ''
         },
         {   
             id: 4,
             title: "Đăng xuất",
-            link: "/logout",
-            icon: <FontAwesomeIcon icon={faArrowRightFromBracket} className={classes.icon}/>
+            link: "/login",
+            icon: <FontAwesomeIcon icon={faArrowRightFromBracket} className={classes.icon}/>,
+            onClick: logout           
         }
       ];
     
@@ -47,7 +53,7 @@ const User = (props) => {
                     {userItem.map(item => {
                         return (
                             <section key={item.id} className={classes["menu-item"]}>
-                                <NavLink to={item.link} className={classes.content}>
+                                <NavLink to={item.link} className={classes.content} onClick={item.onClick ? item.onClick : null}>
                                     {item.icon}
                                     <span>{item.title}</span>
                                 </NavLink>

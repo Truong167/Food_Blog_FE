@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import classes from './ChangePasswordForm.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,6 +7,33 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 const ChangePasswordForm = ({infor, handleChange}) => {
   const [showPassword, setShowPassword] = useState(true)
   const [showPassword1, setShowPassword1] = useState(true)
+  const [ minutes, setMinutes ] = useState(2);
+  const [seconds, setSeconds ] =  useState(0);
+
+    useEffect(() => {
+        setMinutes(infor.minutes)
+        setSeconds(infor.seconds)
+    }, [infor.showOtp])
+
+    useEffect(()=>{
+        let myInterval = setInterval(() => {
+                if (seconds > 0) {
+                    setSeconds(seconds - 1);
+                }
+                if (seconds === 0) {
+                    if (minutes === 0) {
+                        clearInterval(myInterval)
+                    } else {
+                        setMinutes(minutes - 1);
+                        setSeconds(59);
+                    }
+                } 
+            }, 1000)
+            return ()=> {
+                clearInterval(myInterval);
+              };
+        });
+
 
     const handleShowHidePassword = () => {
         setShowPassword(!showPassword)
@@ -18,7 +45,10 @@ const ChangePasswordForm = ({infor, handleChange}) => {
     }
   return (
     <div className={classes.wrapper}>
-        <h4 style={{marginBottom: 10, color: '#606060'}}>Đổi mật khẩu</h4>
+        {!infor.showOtp &&
+            <h4 style={{marginBottom: 10, color: '#606060'}}>Đổi mật khẩu</h4> 
+        }
+        {!infor.showOtp ? (
             <div className={classes.container}>
                 <div className={classes.infor}>
                     <label>Tài khoản</label>
@@ -44,13 +74,17 @@ const ChangePasswordForm = ({infor, handleChange}) => {
                         </span>
                     </div>
                 </div>
-                {infor.showOtp && 
+            </div>)
+                : (
+                    <>
+                    
+                    <h4>OTP sẽ hết hạn trong {minutes}:{seconds < 10 ?  `0${seconds}` : seconds}</h4>
                     <div className={classes.infor}>
                         <label>OTP</label>
                         <input className={classes.input1} value={infor.otp} onChange={handleChange} type='text' name='otp'/>
                     </div>
-                }
-            </div>
+                    </>
+                )}
     </div>
   )
 }

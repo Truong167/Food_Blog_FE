@@ -1,0 +1,45 @@
+.wrapper {
+    width: 500px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -240%);
+    transition: all 0.8s linear;
+    background-color: white;
+    z-index: 100;
+    padding: 4px;
+    text-align: center;
+    border-radius: 12px;
+    opacity: 0;
+}
+
+.recipe {
+    min-height: 280px;
+    max-height: 280px;
+    overflow-x: hidden;
+}
+
+.recipe::-webkit-scrollbar {
+    width: 0 !important;
+    display: none; 
+}
+
+
+
+  .wrapper.open {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 30px;
+    column-gap: 10px;
+    align-items: center;
+    border-bottom: solid 1px black;
+  }
+
+  .icon {
+    font-size: 1.4rem;
+    cursor: pointer;
+  }

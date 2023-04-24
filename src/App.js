@@ -10,6 +10,7 @@ import SearchResultPage from './pages/SearchResultPage';
 import AddRecipePage from './pages/AddRecipePage';
 import EditUserPage from './pages/EditUserPage';
 import ChangePasswordPage from './pages/ChangePasswordPage';
+import UpdateRecipePage from './pages/UpdateRecipePage';
 
 function App() {
   return (
@@ -43,6 +44,9 @@ function App() {
 					</Route>
 					<Route element={<PrivateRoutes />}>
 						<Route path="changePassword" element={<ChangePasswordPage />} />
+					</Route>
+					<Route element={<PrivateRoutes />}>
+						<Route path="updateRecipe/:recipeId" element={<UpdateRecipePage />} />
 					</Route>
 				</Routes>
 			</Router>

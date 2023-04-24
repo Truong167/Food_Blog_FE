@@ -1,0 +1,161 @@
+.wrapper {
+    width: 500px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -200%);
+    transition: all 0.8s linear;
+    background-color: white;
+    z-index: 100;
+    padding: 4px;
+    text-align: center;
+    border-radius: 12px;
+    opacity: 0;
+}
+
+.form {
+    margin-top: 20px;
+}
+
+  .wrapper.open {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 30px;
+    column-gap: 10px;
+    align-items: center;
+    border-bottom: solid 1px black;
+  }
+
+  .icon {
+    font-size: 1.4rem;
+    cursor: pointer;
+  }
+
+  .preview {
+      margin: 0 auto;
+      width: 200px;
+      height: 200px;
+      position: relative;
+      margin-bottom: 20px;
+      margin-top: 40px;
+}
+
+.custom-img {
+    background-color: rgb(0 0 0/0.8);
+    /* width: 100px; */
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10px;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    color: white;
+    border-radius: 8px;
+    padding: 0px 4px;
+}
+
+.icon {
+    padding: 6px;
+    font-size: 1rem;
+}
+
+.preview-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+.upload, .delete {
+    cursor: pointer;
+    position: relative;
+}
+
+.upload::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 8px;
+    bottom: 10px;
+    width: 1.7px;
+    background-color: rgb(255 255 255/0.6);
+    z-index: 10;
+}
+
+.container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.img {
+    position: relative;
+    background-color: rgb(248 246 242/1);
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-top: 40px;
+}
+
+.camera-icon {
+    position: absolute;
+    left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+    font-size: 1.6rem;
+    opacity: 0.6;
+}
+
+.img input, .input {
+    inset: 0;
+    position: absolute;
+    display: block;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.name {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: 200px 250px;
+    align-items: center;
+
+}
+
+.name label {
+    color: #606060;
+}
+
+.name input {
+    margin-top: 8px;
+    width: 100%;
+    background-color: rgb(248 246 242/1);
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    outline: 2px solid transparent;
+    border: none;
+}
+
+.btn {
+    border: none;
+    margin-bottom: 40px;
+    padding: 10px 40px;
+    border-radius: 10px;
+    border: 1px solid #f93;
+    background-color: white;
+    color: #f93;
+    transition: all 0.3s linear;
+    font-weight: 700;
+}
+
+.btn:hover {
+    background-color: #f93;
+    color: white;
+}

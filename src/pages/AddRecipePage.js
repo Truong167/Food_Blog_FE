@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { ToastContainer, toast } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
 import DefaultLayout from '../components/Layout/DefaultLayout'
 import ImageForm from '../components/ImageForm/ImageForm'
 import RecipeNameForm from '../components/RecipeNameForm/RecipeNameForm'
@@ -6,9 +8,7 @@ import IngredientForm from '../components/IngredientForm/IngredientForm'
 import StepForm from '../components/StepForm/StepForm'
 import { useRecipesContext } from '../contexts/recipeContext'
 
-const AddRecipePage = () => {
-  const {createRecipe} = useRecipesContext()
-  const [recipe, setRecipe] = useState({
+const initialRecipe = {
     preview: '',
     recipe: '',
     recipeName: '',
@@ -17,19 +17,27 @@ const AddRecipePage = () => {
     prepareTime: '',
     cookTime: '',
     status: 'CK'
-  })
-  const [ingredientChild, setIngredientChild] = useState([
-    {
-      ingredientId: '',
-      name: '',
-      amount: '',
-    }
-  ])
-  const [stepChild, setStepChild] = useState([{
+}
+
+const initialIngredient = [
+  {
+    ingredientId: '',
+    name: '',
+    amount: '',
+  }
+]
+const initialStep = [
+  {
     description: '',
     image: '',
     step: ''
-  }])
+  }
+]
+const AddRecipePage = () => {
+  const {createRecipe} = useRecipesContext()
+  const [recipe, setRecipe] = useState(initialRecipe)
+  const [ingredientChild, setIngredientChild] = useState(initialIngredient)
+  const [stepChild, setStepChild] = useState(initialStep)
 
   const handleChangeRecipeImage = (e) => {
     setRecipe({...recipe, preview: URL.createObjectURL(e.target.files[0]), [e.target.name]: e.target.files[0]})
@@ -103,7 +111,7 @@ const AddRecipePage = () => {
     setStepChild(newArr)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const frmData = new FormData()
     let newArr = [...stepChild]
@@ -121,13 +129,33 @@ const AddRecipePage = () => {
     frmData.append("cookingTime", recipe.cookTime)
     frmData.append("Steps", JSON.stringify(newArr))
     frmData.append("DetailIngredients", JSON.stringify(ingredientChild))
-    createRecipe(frmData)
-    // if(createRecipe(frmData)) {
-    //   setRecipe({...recipe, preview: '', recipe: '', recipeName: '', description: '', amount: '', prepareTime: '', cookTime: ''})
-    //   setIngredientChild({...ingredientChild, ingredientId: '', name: '', amount: ''})
-    //   setStepChild({...stepChild, description: '', image: '', step: ''})
-    // }
-    console.log(frmData)
+    const result = await createRecipe(frmData)
+    if(result.success){
+      toast.success('Thêm công thức thành công', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: true
+      })
+      setRecipe(initialRecipe)
+      setIngredientChild(initialIngredient)
+      setStepChild(initialStep)
+    } else {
+      if(result.status === 418){
+        toast.warning('Vui lòng nhập đầy đủ thông tin', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: true
+        })
+      } else if(result.status === 440){
+        toast.warning('Có lỗi khi tải hình', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: true
+        })
+      } else if(result.status === 500){
+        toast.warning('Lỗi không xác định', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: true
+        })
+      }
+    }
   }
 
 
@@ -152,6 +180,7 @@ const AddRecipePage = () => {
           handleAddStep={handleAddStep}
         />
       </form>
+      <ToastContainer/>
     </DefaultLayout>
   )
 }
