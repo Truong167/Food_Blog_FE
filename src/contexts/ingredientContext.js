@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useReducer } from "react"
 import { apiUrl } from "../utils/constant"
 import {ingredientReducer} from '../reducers/ingredientReducer'
 import axios from "axios"
+import useAuth from "../hooks/useAuth"
 
 const intialState = {
     ingredients: [],
@@ -15,6 +16,7 @@ export const IngredientContext = createContext()
 
 
 const IngredientContextProvider = ({children}) => {
+    const {authState} = useAuth()
     const [ingredientState, dispatch] = useReducer(ingredientReducer, intialState)
 
     const fetchIngredient = async () => {
@@ -63,8 +65,10 @@ const IngredientContextProvider = ({children}) => {
 
 
     useEffect(() => {
-        fetchIngredient()
-    }, [])
+        if(authState.isAuthenticated){
+            fetchIngredient()
+        }
+    }, [authState.isAuthenticated])
 
 
     const ingredientContextData = {ingredientState, setName, searchIngredient}

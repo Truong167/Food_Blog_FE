@@ -238,13 +238,17 @@ const RecipeContextProvider = ({children}) => {
     }
 
     useEffect(() => {
+      if(authState.isAuthenticated){
         fetchRecipePopular()
         fetchRecipeFollow()
-    }, [])
+      }
+    }, [authState.isAuthenticated])
 
     useEffect(() => {
+      if(authState.isAuthenticated){
         fetchRecipesIngre(name)
-    }, [name])
+      }
+    }, [name, authState.isAuthenticated])
 
 
     const recipeContextData = {
