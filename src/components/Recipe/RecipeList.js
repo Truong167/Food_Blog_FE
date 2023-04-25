@@ -18,7 +18,7 @@ const RecipeList = ({recipes}) => {
     slidesToScroll: 2
   })
   useEffect(() => {
-    if (deviceWidth < 476) setSettings({...settings, slidesToShow: 1, slidesToScroll: 1});
+    if (deviceWidth <= 476) setSettings({...settings, slidesToShow: 1, slidesToScroll: 1});
   }, [deviceWidth]);
   // const settings = {
   //   dots: true,
