@@ -160,7 +160,7 @@ const AddRecipePage = () => {
 
 
   return (
-    <DefaultLayout type='myRecipe' width='680px' handleSubmit={handleSubmit} text='Lên sóng' form='add-recipe'>
+    <DefaultLayout type='myRecipe' width='680px' className='with1' handleSubmit={handleSubmit} text='Lên sóng' form='add-recipe'>
       <form id='add-recipe' encType='multipart/form-data'>
         <ImageForm handleChangeRecipeImage={handleChangeRecipeImage} handleDeleteRecipeImage={handleDeleteRecipeImage} image={recipe.preview}/>
         <RecipeNameForm recipe={recipe} handleChange={(e) => handleChange(e)}/>

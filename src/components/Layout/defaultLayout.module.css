@@ -16,8 +16,25 @@
 }
 
 .content {
-    /* position: absolute; */
     padding: 0 24px;
-    /* width: 990px; */
+    /* width: 65%; */
     min-height: 644px;
+}
+
+.with {
+    width: 990px;
+}
+
+.with1 {
+    width: 680px;
+}
+
+.with2 {
+    width: 480px;
+}
+
+@media (max-width: 476px){
+    .content {
+        width: 100%;
+    }
 }

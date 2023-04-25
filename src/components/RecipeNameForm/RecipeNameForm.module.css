@@ -40,3 +40,10 @@
     background-color: rgb(248 246 242/1);
     border: none;
 }
+
+@media (max-width: 476px){
+    .recipe-name {
+        height: 50px;
+        font-size: 1.1rem;
+    }
+ }

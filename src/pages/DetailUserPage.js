@@ -20,7 +20,7 @@ const DetailUserPage = () => {
         setToggle(index)
     }
   return (
-    <DefaultLayout>
+    <DefaultLayout className='with'>
         <User/>
         <NavBar toggle={toggle} handleToggle={handleToggle} check={check}/>
         {!check && <MyRecipeList type='recipeUser'/>}

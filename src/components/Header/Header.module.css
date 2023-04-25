@@ -64,3 +64,53 @@
   .btn:hover {
     opacity: 0.85;
   }
+
+  
+  @media (max-width: 476px){
+      
+      /* .container {
+          padding-bottom: 0.2rem;
+          padding-top: 0.2rem;
+        } */
+    
+
+    .content {
+        grid-template-columns: 94px 1fr auto;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .content1 {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .image1 {
+        width: 24px;
+        height: 24px;
+        margin-right: 5px;
+        object-fit: cover;
+    }
+    
+    .image2 {
+        width: 60px;
+        height: 24px;
+        /* object-fit: cover; */
+    }
+
+    .mobile {
+        cursor: pointer;
+        width: 32px;
+        height: 32px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .mobile img {
+        width: 32px;
+        height: 32px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+ }

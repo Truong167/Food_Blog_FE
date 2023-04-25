@@ -149,7 +149,7 @@ const RecipeDetail = () => {
                       </div>  
                     </div>
                     </div>
-                    <div className={classes.save}>
+                    {/* <div className={classes.save}>
                       <Button color='#FF9933'>
                         <FontAwesomeIcon icon={faBookmark} style={{marginRight: 10}}/>
                         Lưu món
@@ -157,7 +157,7 @@ const RecipeDetail = () => {
                       <Button color='#45464f'>Chia sẻ</Button>
                       <Button color='#45464f'>In</Button>
                       <Button color='#45464f'>Báo cáo</Button>
-                    </div>
+                    </div> */}
                 </div>
             {/* } */}
       </div>

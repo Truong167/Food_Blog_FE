@@ -20,7 +20,7 @@ const Footer = () => {
           </button>
         </div>
       </div>
-      <img src={footer} style={{width: 942, height: 96}} alt='footer'/>
+      <img src={footer} alt='footer' className={classes.img}/>
     </footer>
   )
 }

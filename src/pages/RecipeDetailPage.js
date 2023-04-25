@@ -4,7 +4,7 @@ import RecipeDetail from '../components/Layout/RecipeDetail/RecipeDetail'
 
 const RecipeDetailPage = () => {
   return (
-    <DefaultLayout>
+    <DefaultLayout className='with1'>
         <RecipeDetail/>
     </DefaultLayout>
   )

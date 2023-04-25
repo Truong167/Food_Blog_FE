@@ -12,11 +12,26 @@ import User from "../UI/User";
 
 import useAuth from "../../hooks/useAuth";
 import Button from "../UI/Button/Button";
+import useViewport from "../../hooks/useViewPort";
+import { imageUrl } from "../../utils/constant";
+import { useState } from "react";
+import Mobile from "../UI/Modal/Mobile/Mobile";
+import BackDrop from "../UI/Modal/BackDrop";
+
 
 const Header = ({type = 'normal', handleSubmit, text, form}) => {
   const {authState: {user}} = useAuth()
+  const { width: deviceWidth } = useViewport()
+  const [isOpen, setIsOpen] = useState(false)
+
+  const closeBackDrop = () => {
+    if(isOpen) setIsOpen(false)
+  }
+
   return (
     <header className={classes.bg}>
+        <Mobile className={isOpen ? 'open' : ''}/>
+        {isOpen && <BackDrop onClose={closeBackDrop}/>}
         <div className={classes.container}>
           <div className={type === 'myRecipe' ? classes.content1 : classes.content}>
             <div className={classes.left}>
@@ -29,8 +44,16 @@ const Header = ({type = 'normal', handleSubmit, text, form}) => {
               <button form={form} className={classes.btn} type="submit" onClick={handleSubmit}>{text}</button>
               :  <>
                 <Search/>
-                <BreadCrumbs/>
-                <User user={user}/>
+                {deviceWidth < 476  ? 
+                  <div className={classes.mobile} onClick={() => setIsOpen(true)}>
+                    <img src={`${imageUrl + user.avatar}`}/>
+                  </div> 
+                  : 
+                  <>
+                    <BreadCrumbs/>
+                    <User user={user}/> 
+                  </>
+                }
               </>
           }
           </div>

@@ -28,3 +28,32 @@
 .link:hover {
     color: white;
 }
+
+.img {
+    width: 942px;
+    height: 96px;
+}
+
+@media (max-width: 476px){
+    .footer {
+        width: 100%;
+    }
+
+    .container {
+        grid-template-columns: 1fr 1fr;
+        column-gap: 20px;
+    }
+
+    .img {
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .container h3 {
+        font-size: 1.1rem;
+    }
+
+    .container p {
+        font-size: 0.85rem;
+    }
+}

@@ -8,7 +8,7 @@ const HomePage = () => {
   const {singleRecipe} = useRecipesContext()
   console.log(singleRecipe)
   return (
-    <DefaultLayout>
+    <DefaultLayout className='with'>
         <RecipeIngre/>
         <RecipeFollow/>
         <RecipePopular/>

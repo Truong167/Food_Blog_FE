@@ -7,3 +7,10 @@
 .content {
     display: flex;
 }
+
+
+@media (max-width: 476px){
+    .content {
+        flex-wrap: wrap;
+    }
+}
