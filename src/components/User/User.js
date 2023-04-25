@@ -1,37 +1,50 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { apiUrl, imageUrl } from '../../utils/constant'
+import { imageUrl } from '../../utils/constant'
+import ModalFollow from '../UI/Modal/Follow'
+
 import useAuth from '../../hooks/useAuth'
 import Button from '../UI/Button/Button'
 
 import classes from './User.module.css'
+import Backdrop from '../UI/Modal/BackDrop'
 
 const User = () => {
     const {authState, getUser} = useAuth()
+    const [isOpen, setIsOpen] = useState(false)
+    const [type, setType] = useState()
+
+    const closeBackdrop = () => {
+        if(isOpen) setIsOpen(false)
+    }
+
+    const onClose = () => {
+        setIsOpen(false)
+    }
+
+    const openFollowing = () => {
+        setIsOpen(true)
+        setType('following')
+    }
+
+    const openFollow = () => {
+        setIsOpen(true)
+        setType('follow')
+    }
+
     const {id} = useParams()
     let check = true
     if(authState.user.userId === parseInt(id)){
         check = false
     }
-    // const getUser = async (id) => {
-    //     try {
-    //         const result = await axios.get(`${apiUrl}/user/getUser/${id}`)
-    //         if(result.data.message) {
-    //             console.log(result.data.data)
-    //             setUserObject(result.data.data)
-    //             setLoading(false)
-    //         }
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
     useEffect(() => {
         getUser(id)
     }, [id])
     console.log(authState.userInfor)
     return (
     <div className={classes.wrapper}>
+        <ModalFollow type={type} className={isOpen ? "open" : ""} onClose={onClose}/>
+        {isOpen && <Backdrop onClose={closeBackdrop} />}
         {!authState.userInforLoading && 
             <div className={classes.container}>
                 <div className={classes.left}>
@@ -49,8 +62,8 @@ const User = () => {
                     </div>
                     <div className={classes.detail}>
                         <span><b>{authState.userInfor.countRecipe}</b> công thức</span>
-                        <span><b>{authState.userInfor.countFollowed}</b> người theo dõi</span>
-                        <span><b>{authState.userInfor.countFollowing}</b> người đang theo dõi</span>
+                        <span onClick={openFollow}><b>{authState.userInfor.countFollowed}</b> người theo dõi</span>
+                        <span onClick={openFollowing}><b>{authState.userInfor.countFollowing}</b> người đang theo dõi</span>
                     </div>
                     <div className={classes.address} style={{marginTop: 20}}>Hiện đang sinh sống tại {authState.userInfor.address}</div>
                     <div className={classes.description}>

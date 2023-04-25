@@ -1,0 +1,31 @@
+.wrapper {
+    padding: 5px 8px;
+    display: grid;
+    grid-template-columns: 290px auto;
+    align-items: center;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+}
+
+.img {
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.btn {
+    background-color: #efefef;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.btn:hover {
+    background-color: rgb(219, 219, 219);
+}

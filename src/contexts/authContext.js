@@ -15,7 +15,11 @@ const AuthContextProvider = ({children}) => {
         isAuthenticated: false,
         user: null,
         userInfor: {},
-        userInforLoading: true
+        userInforLoading: true,
+        userFollowing: [],
+        userFollowingLoading: true,
+        userFollow: [],
+        userFollowLoading: true
     })
 
     const loadUser = async () => {
@@ -113,6 +117,44 @@ const AuthContextProvider = ({children}) => {
         }
     }
 
+    const getUserFollowing = async id => {
+        console.log(id)
+        try {
+            const result = await axios.get(`${apiUrl}/user/getUserFollowing/${id}`)
+            console.log(result)
+            if(result.data.success){
+                dispatch({
+                    type: 'GET_USER_FOLLOWING',
+                    payload: {userFollowing: result.data.data.users}
+                })
+            }
+        } catch (error) {
+            dispatch({
+                type: 'GET_USER_FOLLOWING',
+                payload: {userFollowing: []}
+            })
+        }
+    }
+
+    const getUserFollow = async id => {
+        console.log(id)
+        try {
+            const result = await axios.get(`${apiUrl}/user/getUserFollow/${id}`)
+            console.log(result)
+            if(result.data.success){
+                dispatch({
+                    type: 'GET_USER_FOLLOW',
+                    payload: {userFollow: result.data.data.users}
+                })
+            }
+        } catch (error) {
+            dispatch({
+                type: 'GET_USER_FOLLOW',
+                payload: {userFollow: []}
+            })
+        }
+    }
+
     const sendOtp = async data => {
         console.log(data)
         try {
@@ -139,7 +181,7 @@ const AuthContextProvider = ({children}) => {
         }
     }
     // context data
-    const authContextData = { loginUser, registerUser, authState, editUser, sendOtp, changePassword, logout, getUser } 
+    const authContextData = { loginUser, registerUser, authState, editUser, sendOtp, changePassword, logout, getUser, getUserFollowing, getUserFollow } 
 
     // return provider
     return (
