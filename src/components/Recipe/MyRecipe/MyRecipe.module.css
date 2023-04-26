@@ -82,4 +82,8 @@
     .img {
         height: 300px;
     }
+
+    .icon {
+        font-size: 1.4rem;
+    }
 }

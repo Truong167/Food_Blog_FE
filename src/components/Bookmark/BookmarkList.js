@@ -18,7 +18,7 @@ const BookmarkList = () => {
   }
 
   const closeBackdrop1 = () => {
-    if(isOpen) setIsOpen(false)
+    if(isOpenAdd) setIsOpenAdd(false)
   }
   const onClose = () => {
     setIsOpen(false)

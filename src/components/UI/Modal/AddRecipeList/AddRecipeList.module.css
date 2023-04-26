@@ -159,3 +159,24 @@
     background-color: #f93;
     color: white;
 }
+
+@media (max-width: 476px){
+
+    .wrapper {
+        width: 90%;
+    }
+
+    .header h4 {
+        font-size: 1rem;
+        margin-left: 20px;
+    }
+
+    .icon {
+        font-size: 1.4rem;
+    }
+
+    .name {
+        grid-template-columns: 1fr 1fr;
+        margin-right: 10px;
+    }
+}

@@ -43,3 +43,9 @@
     font-size: 1.4rem;
     cursor: pointer;
   }
+
+@media (max-width: 476px){
+  .wrapper {
+    width: 90%;
+  }
+}

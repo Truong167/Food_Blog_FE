@@ -57,3 +57,18 @@
     color: black;
     text-decoration: underline;
 }
+
+@media (max-width: 476px){
+
+    .wrapper {
+        grid-template-columns: 130px 1fr;
+    }
+
+    .name1 {
+        font-size: 1.2rem;
+    }
+
+    .name {
+        font-size: 0.8rem;
+    }
+}

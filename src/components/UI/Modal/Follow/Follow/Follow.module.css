@@ -29,3 +29,17 @@
 .btn:hover {
     background-color: rgb(219, 219, 219);
 }
+
+@media (max-width: 476px){
+    .wrapper {
+        grid-template-columns: 1fr 110px;
+    }
+
+    .left h6 {
+        font-size: 0.8rem;
+    }
+
+    .btn {
+        font-size: 0.8rem;
+    }
+}

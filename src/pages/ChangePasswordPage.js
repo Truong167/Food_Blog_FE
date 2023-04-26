@@ -78,7 +78,7 @@ const ChangePasswordPage = () => {
 
     }
   return (
-    <DefaultLayout type='myRecipe' width='480px' text='Cập nhật' form="change-password" handleSubmit={handleSubmit}>
+    <DefaultLayout type='myRecipe' className='width2' text='Cập nhật' form="change-password" handleSubmit={handleSubmit}>
         <form id='change-password'>
             <ChangePasswordForm infor={infor} handleChange={handleChange}/> 
         </form>

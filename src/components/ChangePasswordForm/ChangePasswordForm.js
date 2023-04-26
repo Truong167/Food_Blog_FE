@@ -52,12 +52,14 @@ const ChangePasswordForm = ({infor, handleChange}) => {
             <div className={classes.container}>
                 <div className={classes.infor}>
                     <label>Tài khoản</label>
-                    <input className={classes.input1} value={infor.accountName} onChange={handleChange} type='text' name='accountName'/>
+                    <div className={classes.custom}>
+                        <input className={classes.input1} value={infor.accountName} onChange={handleChange} type='text' name='accountName'/>
+                    </div>
                 </div>
                 <div className={classes.infor}>
                     <label>Mật khẩu mới</label>
                     <div className={classes.custom}>
-                        <input  className={classes.input1} value={infor.newPassword} onChange={handleChange} type={showPassword ? 'password' : 'text'}  name='newPassword'/>
+                        <input  className={`${classes.input1} ${classes.child}`} value={infor.newPassword} onChange={handleChange} type={showPassword ? 'password' : 'text'}  name='newPassword'/>
                         <span onClick={handleShowHidePassword} className={infor.newPassword.length > 0 ? "block" : "hide"}>
                             <FontAwesomeIcon icon={faEye} className="icon"/>  
                             {showPassword ? <FontAwesomeIcon icon={faEye} className="icon"/> : <FontAwesomeIcon icon={faEyeSlash} className="icon"/>}
@@ -67,7 +69,7 @@ const ChangePasswordForm = ({infor, handleChange}) => {
                 <div className={classes.infor}>
                     <label>Xác nhận mật khẩu</label>
                     <div className={classes.custom}>
-                        <input className={classes.input1} value={infor.checkPassword} onChange={handleChange} type={showPassword1 ? 'password' : 'text'}  name='checkPassword'/>
+                        <input className={`${classes.input1} ${classes.child}`} value={infor.checkPassword} onChange={handleChange} type={showPassword1 ? 'password' : 'text'}  name='checkPassword'/>
                         <span onClick={handleShowHidePassword1} className={infor.checkPassword.length > 0 ? "block" : "hide"}>
                             <FontAwesomeIcon icon={faEye} className="icon"/>  
                             {showPassword1 ? <FontAwesomeIcon icon={faEye} className="icon"/> : <FontAwesomeIcon icon={faEyeSlash} className="icon"/>}

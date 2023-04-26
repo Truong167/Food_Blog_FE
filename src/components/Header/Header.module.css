@@ -75,14 +75,15 @@
     
 
     .content {
-        grid-template-columns: 94px 1fr auto;
-        padding-left: 2rem;
-        padding-right: 2rem;
+        grid-template-columns: 90px 1fr auto;
+        column-gap: 0.8rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 
     .content1 {
-        padding-left: 2rem;
-        padding-right: 2rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 
     .image1 {
@@ -93,8 +94,8 @@
     }
     
     .image2 {
-        width: 60px;
-        height: 24px;
+        width: 58px;
+        height: 28px;
         /* object-fit: cover; */
     }
 

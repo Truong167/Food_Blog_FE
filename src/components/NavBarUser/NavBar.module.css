@@ -30,3 +30,22 @@
     cursor: pointer;
     border-top: 1px solid black;
 }
+
+@media (max-width: 476px){
+
+    .nav {
+        display: flex;
+        justify-content: space-between;
+        column-gap: 0;
+    }
+
+    .nav-item, .active {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+
+    .nav-item span, .active span {
+        /* margin-left: 8px; */
+        font-size: 0.8rem;
+    }
+}

@@ -11,3 +11,10 @@
     justify-content: end;
     cursor: pointer;
 }
+
+@media (max-width: 476px){
+    .nav-item span, .active span {
+        margin-left: 8px;
+        font-size: 0.8rem;
+    }
+}

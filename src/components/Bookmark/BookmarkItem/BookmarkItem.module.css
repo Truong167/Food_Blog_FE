@@ -43,3 +43,10 @@
 .over-lay:hover {
     opacity: 0.3;
 }
+
+@media (max-width: 476px){
+    .container {
+        grid-template-columns: 1fr;
+        row-gap: 10px;
+    }
+}

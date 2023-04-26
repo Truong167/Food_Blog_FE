@@ -3,7 +3,7 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -200%);
+    transform: translate(-50%, -260%);
     transition: all 0.8s linear;
     background-color: white;
     z-index: 100;
@@ -97,4 +97,10 @@
 .btn:hover {
     background-color: #f93;
     color: white;
+}
+
+@media (max-width: 476px){
+  .wrapper {
+    width: 90%;
+  }
 }
