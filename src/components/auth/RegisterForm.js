@@ -32,6 +32,7 @@ const RegisterForm = () => {
         })
         navigate('/')
       } else {
+        console.log(registerData)
         if(registerData.status === 418) {
           toast.warning('Vui lòng nhập đầy đủ thông tin', {
             position: toast.POSITION.TOP_RIGHT,
