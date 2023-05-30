@@ -3,8 +3,13 @@ import React from 'react'
 import classes from './RecipeItem.module.css'
 import { imageUrl } from '../../../../../utils/constant'
 import { Link } from 'react-router-dom'
+import { useRecipesContext } from '../../../../../contexts/recipeContext'
 
-const RecipeItem = ({recipe}) => {
+const RecipeItem = ({recipe, recipeListId}) => {
+  const {deleteRecipeList} = useRecipesContext()
+  const handleDeleteRecipe = (e) => {
+    deleteRecipeList(recipeListId, e.target.id)
+  }
   return (
     <div className={classes.wrapper}>
         <Link to={`/detail/${recipe.recipeId}`}>
@@ -15,7 +20,7 @@ const RecipeItem = ({recipe}) => {
             <Link to={`/user/${recipe.User.userId}`} className={classes.name1}>{recipe.User.fullName}</Link>
             <Link to={`/detail/${recipe.recipeId}`} className={classes.name}>{recipe.recipeName}</Link>
         </div>
-        <button>Xóa công thức</button>
+        <button id={recipe.recipeId} onClick={handleDeleteRecipe}>Xóa công thức</button>
       </div>
     </div>
   )

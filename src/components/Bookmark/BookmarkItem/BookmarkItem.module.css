@@ -44,6 +44,14 @@
     opacity: 0.3;
 }
 
+.icon {
+    color: rgb(232, 230, 230);
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 20;
+}
+
 @media (max-width: 476px){
     .container {
         grid-template-columns: 1fr;

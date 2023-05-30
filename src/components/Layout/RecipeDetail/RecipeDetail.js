@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMap , faHeart, faComment, faBookmark } from '@fortawesome/free-regular-svg-icons'
-import { faHandsClapping } from '@fortawesome/free-solid-svg-icons'
+import { faEllipsis, faHandsClapping } from '@fortawesome/free-solid-svg-icons'
 
 import Loading from '../../UI/Loading/Loading'
 import { apiUrl, imageUrl } from '../../../utils/constant'
@@ -14,18 +14,41 @@ import { formatDate } from '../../../utils/formatDate'
 import Button from '../../UI/Button/Button'
 import CommentForm from '../../UI/Comment/CommentForm'
 import { useRecipesContext } from '../../../contexts/recipeContext'
+import Tippy from '@tippyjs/react/headless'
 
 const RecipeDetail = () => {
     const {fetchSingleRecipe, singleRecipe, singleRecipeLoading} = useRecipesContext()
     const [success, setSuccess] = useState(false)
     const [comments, setComments] = useState([])
+    const [myComment, setMyComment] = useState()
+    const [visible, setVisible] = useState(false)
     const [showMore, setShowMore] = useState(false)
+    const [comment, setComment] = useState('')
+    const [type, setType] = useState(0)
+
     const {id} = useParams()
     const getComment = async (id) => {
       try {
         const result = await axios.get(`${apiUrl}/comment/getCommentOfRecipe/${id}`)
         if(result.data.success){
           setComments(result.data.data.comment)
+          console.log(result.data.data)
+          if(result.data.data.myComment){
+            setMyComment(result.data.data.myComment)
+          } else {
+            setMyComment('')
+          }
+        }
+      } catch (error) {
+        console.log(error)    
+      }
+    }
+
+    const deleteComment = async (id) => {
+      try {
+        const result = await axios.delete(`${apiUrl}/comment/deleteComment/${id}`)
+        if(result.data.success){
+          await getComment(id)
         }
       } catch (error) {
         console.log(error)    
@@ -46,9 +69,61 @@ const RecipeDetail = () => {
       setShowMore(!showMore)
     }
 
+    const handleClick1 = () => {
+      setVisible(true)
+
+    }
+
+    const handleClickOutSide = () => {
+      setVisible(false)
+  }
+
     const handleSubmit = (success) => {
       setSuccess(success)
     } 
+
+    const handleGetDataComment = () => {
+      setComment(myComment.comment)
+      setSuccess(false)
+      setType(1)
+    }
+
+    const handleDeleteComment = () => {
+      deleteComment(id)
+    }
+
+    let menuItem = [
+      {
+          id: 1,
+          title: "Cập nhật",
+          onClick: handleGetDataComment,
+          // to: '/updateRecipe/'
+      },
+      {   
+          id: 2,
+          title: "Xóa bình luận",
+          onClick: handleDeleteComment,
+          to: ''
+      }
+    ];
+  
+  const renderResult = () => (
+      <div className={classes["menu-list"]} tabIndex="-1">
+          <div className={classes["menu-poper"]}>
+              <div className={classes["menu-body"]}>
+                  {menuItem.map(item => {
+                      return (
+                          <section key={item.id} className={classes["menu-item"]} 
+                              onClick={() => setVisible(false)}>
+                              <span onClick={(e) => item.onClick(e)}>{item.title}</span>
+                          </section>
+                        )
+                  })}
+              </div>
+              
+          </div>
+      </div>
+  )
 
     return (
       <div>
@@ -118,6 +193,30 @@ const RecipeDetail = () => {
                           <h3>Bình luận</h3>
                       </div>
                           <div className={classes["comment-content-block"]}>
+                            {myComment && 
+                            <>
+                            <h6>Bình luận của bạn</h6>
+                              <div key={myComment.userId} className={classes['comment-content']}>
+                                <img src={`${myComment.User.avatar ? imageUrl + myComment.User.avatar : no_avatar}`} alt={myComment.User.fullName}/>
+                                <div>
+                                    <h6>{myComment.User.fullName + " " +  formatDate(myComment.date)}</h6>
+                                <span>{myComment.comment}</span>
+                              </div>
+                                <Tippy
+                                  delay={[0, 500]}
+                                  offset={[20, 16]}
+                                  visible={visible}
+                                  interactive
+                                  placement='bottom-end'
+                                  render={renderResult}
+                                  onClickOutside={handleClickOutSide}
+                                >
+                                    <FontAwesomeIcon icon={faEllipsis} className={classes.icon} onClick={handleClick1}/> 
+                                </Tippy>
+                          </div>
+                            </>
+                            }
+                            <h6>Tất cả tương tác</h6>
                             {comments.length > 0 ? comments.map(item => {
                               return (
                                 <Link key={item.userId} className={classes['comment-content']} to={`/user/${item.userId}`}>
@@ -145,7 +244,7 @@ const RecipeDetail = () => {
                               </button>
                             </form>
                           </div> */}
-                          <CommentForm handleSubmit={handleSubmit}/>
+                          <CommentForm handleSubmit={handleSubmit} comment={comment} setComment={setComment} type={type} setType={setType}/>
                       </div>  
                     </div>
                     </div>

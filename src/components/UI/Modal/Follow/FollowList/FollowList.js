@@ -4,8 +4,7 @@ import useAuth from '../../../../../hooks/useAuth'
 import { useParams } from 'react-router-dom'
 
 const FollowList = ({type}) => {
-    const {authState, getUserFollowing, getUserFollow} = useAuth()
-    const [user, setUser] = useState([])
+    const {authState: {userFollowing, userFollow}, getUserFollowing, getUserFollow} = useAuth()
     const {id} = useParams()
     console.log(type)
 
@@ -14,24 +13,15 @@ const FollowList = ({type}) => {
         getUserFollow(id)
     }, [id])
 
-    useEffect(() => {
-        if(type === 'following'){
-            if(!authState.userFollowingLoading) {
-                setUser(authState.userFollowing)
-            }
-        } else {
-            if(!authState.userFollowLoading) {
-                setUser(authState.userFollow)
-            }
-        }
-    }, [type, id])
-
-    console.log(authState.userFollow, authState.userFollowing, user, type)
   return (
     <div style={{marginTop: 20}}>
-      {user.map(item => (
-        <Follow {...item} key={item.userId}/>
-      ))}
+      {type === 'following' ? userFollowing.map(item => (
+        <Follow {...item} key={item.userId} type={type}/>
+      )):
+      userFollow.map(item => (
+        <Follow {...item} key={item.userId} type={type}/>
+      ))
+      }
     </div>
   )
 }

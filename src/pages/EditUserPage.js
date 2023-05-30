@@ -65,7 +65,7 @@ const EditUserPage = () => {
 
   }
   return (
-    <DefaultLayout type='myRecipe' width='680px' text='Cập nhật' form="edit-user" handleSubmit={handleSubmit}>
+    <DefaultLayout type='myRecipe' className="with1" text='Cập nhật' form="edit-user" handleSubmit={handleSubmit}>
       <form id="edit-user" encType='multipart/form-data'>
         <UserForm handleOnChange={handleOnChange} infor={infor} handleOnChangeUserImage={handleOnChangeUserImage} handleDeleteUserImage={handleDeleteUserImage}/>
       </form>

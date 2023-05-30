@@ -23,10 +23,7 @@ const LoginForm = () => {
     try {
       const loginData = await loginUser(loginForm)
       if(loginData.success) {
-        toast.success('Đăng nhập thành công', {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: true
-        })
+        alert('Đăng nhập thành công')
       } else {
         if(loginData.status === 418) {
           toast.warning('Vui lòng nhập đầy đủ thông tin', {

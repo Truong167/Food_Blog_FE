@@ -8,7 +8,7 @@ import RecipeItem from './RecipeItem/RecipeItem'
 import classes from './RecipeList.module.css'
 import useViewport from '../../hooks/useViewPort';
 
-const RecipeList = ({recipes}) => {
+const RecipeList = ({recipes, setIsOpen}) => {
   const { width: deviceWidth } = useViewport()
   const [settings, setSettings] = useState({
     dots: false,
@@ -32,10 +32,10 @@ const RecipeList = ({recipes}) => {
       {recipes.length > 0 ? ( recipes.length > 4 ?
         <Slider {...settings}>
         {recipes.map(item => (
-          <RecipeItem {...item} key={item.recipeId}/>
+          <RecipeItem {...item} key={item.recipeId} setIsOpen={setIsOpen}/>
         ))}
       </Slider> : <div className={classes.content}>{recipes.map(item => (
-        <RecipeItem {...item} key={item.recipeId}/>
+        <RecipeItem {...item} key={item.recipeId} setIsOpen={setIsOpen}/>
       ))}</div>
       ) : <h3>Không có công thức phù hợp</h3>
       }   

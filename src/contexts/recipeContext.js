@@ -18,7 +18,9 @@ const initialState = {
     myRecipe: [],
     myRecipeLoading: false,
     recipeOfUser: [],
-    recipeOfUserLoading: true
+    recipeOfUserLoading: true,
+    recipeId: '',
+    recipeList: []
 }
 
 const RecipeContext = createContext()
@@ -28,13 +30,14 @@ const RecipeContextProvider = ({children}) => {
     const [recipeState, dispatch] = useReducer(recipeReducer, initialState)
     const fetchRecipesIngre = async (name) => {
         try {
-            if(!ingredientLoading) {
-                const result = await axios.get(`${apiUrl}/recipe/getRecipeByIngredient/${name}`)
-                dispatch({
-                    type: 'GET_RECIPE_BY_INGREDIENT',
-                    payload: {recipesIngre: result.data.data}
-                })
-            }
+          if(name){
+            const result = await axios.get(`${apiUrl}/recipe/getRecipeByIngredient/${name}`)
+            dispatch({
+              type: 'GET_RECIPE_BY_INGREDIENT',
+              payload: {recipesIngre: result.data.data}
+            })
+            console.log(result.data.data)
+          }
           } catch (error) {
             dispatch({
                 type: 'GET_RECIPE_BY_INGREDIENT',
@@ -61,6 +64,7 @@ const RecipeContextProvider = ({children}) => {
     }
 
     const fetchRecipeFollow = async () => {
+      console.log('lalalal')
         try {
             const result = await axios.get(`${apiUrl}/recipe/getRecipeFromFollowers`)
             if(result.data.success){
@@ -113,6 +117,37 @@ const RecipeContextProvider = ({children}) => {
         }
       }
 
+      const fetchDataRecipeList = async (recipeListId) => {
+        try {
+          console.log(recipeListId)
+            const result = await axios.get(`${apiUrl}/recipeList/getRecipe/${recipeListId}`)
+            if(result.data.success) {
+              dispatch({
+                type: 'GET_MY_RECIPE_LIST',
+                payload: {recipeList: result.data.data}
+              })
+            }
+        } catch (error) {
+            dispatch({
+              type: 'GET_MY_RECIPE_LIST',
+              payload: {recipeList: []}
+            })  
+        }
+    }
+
+    const deleteRecipeList = async (recipeListId, recipeId) => {
+      try {
+        console.log(recipeListId)
+          const result = await axios.delete(`${apiUrl}/recipeList/deleteRecipe/${recipeListId}/${recipeId}`)
+          console.log(result)
+          if(result.data.success) {
+            await fetchDataRecipeList(recipeListId)
+          }
+      } catch (error) {
+          console.log(error)
+      }
+  }
+
       const fetchRecipeByUserId = async (id) => {
         try {
             const result = await axios.get(`${apiUrl}/recipe/getRecipeByUserId1/${id}`)
@@ -130,6 +165,13 @@ const RecipeContextProvider = ({children}) => {
               })   
           }
         }
+      
+      const setRecipeId = (id) => {
+        dispatch({
+          type: 'SET_RECIPE_ID',
+          payload: {recipeId: id}
+        })
+      }
 
     const createRecipe = async data => {
       console.log(data)
@@ -195,14 +237,17 @@ const RecipeContextProvider = ({children}) => {
         const result = await axios.post(`${apiUrl}/favorite/create/${id}`)
         if(result.data.success){
           if(type === 'main') {
-            fetchRecipePopular()
-            fetchRecipeFollow()
-            fetchRecipesIngre(name)
+            await fetchRecipePopular()
+            await fetchRecipeFollow()
+            await fetchRecipesIngre(name)
+            console.log(name)
           } else {
             if(userId){
-              fetchRecipeByUserId(userId)
+              console.log(userId)
+              await fetchRecipeByUserId(userId)
             } else {
-              fetchMyRecipe()
+              console.log(userId)
+              await fetchMyRecipe()
             }
           }
           return result.data
@@ -219,14 +264,17 @@ const RecipeContextProvider = ({children}) => {
         const result = await axios.delete(`${apiUrl}/favorite/delete/${id}`)
         if(result.data.success){
           if(type === 'main') {
-            fetchRecipePopular()
-            fetchRecipeFollow()
-            fetchRecipesIngre(name)
+            await fetchRecipePopular()
+            await fetchRecipeFollow()
+            await fetchRecipesIngre(name)
+            console.log(name)
           } else {
             if(userId){
-              fetchRecipeByUserId(userId)
+              console.log(userId)
+              await fetchRecipeByUserId(userId)
             } else {
-              fetchMyRecipe()
+              console.log(userId)
+              await fetchMyRecipe()
             }
           }
           return result.data
@@ -261,7 +309,11 @@ const RecipeContextProvider = ({children}) => {
       handleLike, 
       handleDisLike, 
       fetchMyRecipe,
-      updateRecipe
+      updateRecipe,
+      setRecipeId,
+      fetchDataRecipeList,
+      deleteRecipeList,
+      fetchRecipeFollow,
     }
 
     return (

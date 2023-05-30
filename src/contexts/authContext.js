@@ -160,6 +160,7 @@ const AuthContextProvider = ({children}) => {
         try {
           const result = await axios.post(`${apiUrl}/auth/sendOtp`, data)
           if(result.data.success){
+            console.log(result.data)
             return result.data
           }
         } catch (error) {
@@ -180,8 +181,49 @@ const AuthContextProvider = ({children}) => {
             return {success: false, message: error.message}
         }
     }
+
+    const followUser = async userId => {
+        try {
+            const result = await axios.post(`${apiUrl}/follow/create/${userId}`)
+            if(result.data.success){
+                await getUser(userId)
+                await getUserFollow(userId)
+                return result.data
+            }
+          } catch (error) {
+              if(error.response.data) return error.response
+              return {success: false, message: error.message}
+          }
+    }
+
+    const unFollowUser = async userId => {
+        try {
+            const result = await axios.delete(`${apiUrl}/follow/delete/${userId}`)
+            if(result.data.success){
+                await getUser(userId)
+                await getUserFollow(userId)
+                return result.data
+            }
+          } catch (error) {
+              if(error.response.data) return error.response
+              return {success: false, message: error.message}
+          }
+    }
     // context data
-    const authContextData = { loginUser, registerUser, authState, editUser, sendOtp, changePassword, logout, getUser, getUserFollowing, getUserFollow } 
+    const authContextData = { 
+        loginUser, 
+        registerUser, 
+        authState, 
+        editUser, 
+        sendOtp, 
+        changePassword, 
+        logout, 
+        getUser, 
+        getUserFollowing, 
+        getUserFollow,
+        followUser,
+        unFollowUser
+    } 
 
     // return provider
     return (

@@ -53,7 +53,7 @@ const User = (props) => {
                     {userItem.map(item => {
                         return (
                             <section key={item.id} className={classes["menu-item"]}>
-                                <NavLink to={item.link} className={classes.content} onClick={item.onClick ? item.onClick : null}>
+                                <NavLink to={item.link} className={classes.content} onClick={item.onClick && item.onClick}>
                                     {item.icon}
                                     <span>{item.title}</span>
                                 </NavLink>

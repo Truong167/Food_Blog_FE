@@ -2,28 +2,18 @@ import React, { useEffect, useState } from 'react'
 import RecipeItem from '../RecipeItem/RecipeItem'
 import axios from 'axios'
 import { apiUrl } from '../../../../../utils/constant'
+import { useRecipesContext } from '../../../../../contexts/recipeContext'
 
 const RecipeList = ({recipeListId}) => {
-    const [recipe, setRecipe] = useState([])
-    const fetchData = async () => {
-        try {
-            const result = await axios.get(`${apiUrl}/recipeList/getRecipe/${recipeListId}`)
-            if(result.data.success) {
-                setRecipe(result.data.data)
-            }
-        } catch (error) {
-            setRecipe([])
-            console.log(error)
-        }
-    }
+  const {fetchDataRecipeList, recipeList} = useRecipesContext()
     useEffect(() => {
-        fetchData()
+      fetchDataRecipeList(recipeListId)
     }, [recipeListId])
-    console.log(recipe)
+    console.log(recipeListId)
   return (
     <div>
-      {recipe.length > 0 ? recipe.map(item => (
-        <RecipeItem key={item.recipeId} recipe={item}/>
+      {recipeList.length > 0 ? recipeList.map(item => (
+        <RecipeItem key={item.recipeId} recipe={item} recipeListId={recipeListId}/>
       )):
         <span>Không có công thức nào</span>
       }

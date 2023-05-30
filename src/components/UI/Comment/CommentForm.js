@@ -8,9 +8,9 @@ import { apiUrl, imageUrl } from '../../../utils/constant'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
-const CommentForm = ({handleSubmit}) => {
+const CommentForm = ({handleSubmit, comment, setComment, type, setType}) => {
     const {authState} = useAuth()
-    const [comment, setComment] = useState('')
+    // const [comment, setComment] = useState('')
     const {id} = useParams()
 
     const addComment = async () => {
@@ -28,6 +28,22 @@ const CommentForm = ({handleSubmit}) => {
           console.log(error)
         }
       }
+    
+      const updateComment = async () => {
+        if(!comment){
+            alert('Không được để trống')
+            return
+        }
+        try {
+          const result = await axios.put(`${apiUrl}/comment/updateComment/${id}`, {comment})
+          if(result.data.success){
+            handleSubmit(result.data.success)
+          } 
+        } catch (error) {
+            alert(`${error.response.data.message}`)
+          console.log(error)
+        }
+      }
     const handleChange = (e) => {
         const comment = e.target.value
           if(!comment.startsWith(' ')) {
@@ -37,7 +53,12 @@ const CommentForm = ({handleSubmit}) => {
   
       const createComment = (e) => {
         e.preventDefault()
-        addComment()
+        if(type === 0){
+          addComment()
+        } else {
+          updateComment()
+          setType(0)
+        }
         setComment('')
       }
   return (

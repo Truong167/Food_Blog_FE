@@ -12,7 +12,6 @@ import { useRecipesContext } from '../../../contexts/recipeContext';
 
 const MyRecipe = ({status, isFavorite, recipeId, recipeName, numberOfLikes, image, type, handleOpenModal, setStatus, setRecipeId, handleOpenDialog, userId}) => {
   const {handleLike, handleDisLike, fetchSingleRecipe} = useRecipesContext()
-
   const [visible, setVisible] = useState(false)
     const handleClick = () => {
         setVisible(!visible)
@@ -104,8 +103,8 @@ const renderResult = () => (
       <div>
         <div>
           <button className={classes.btn}>
-            {isFavorite ? <FontAwesomeIcon className={classes.active} icon={faLiked} onClick={() => handleDisLike(recipeId, 'user', userId)}/> 
-              : <FontAwesomeIcon icon={faHeart} onClick={() => handleLike(recipeId, 'user', userId)}/>
+            {isFavorite ? <FontAwesomeIcon className={classes.active} icon={faLiked} onClick={() => handleDisLike(recipeId, 'user', type === 'myRecipe' ? '' : userId)}/> 
+              : <FontAwesomeIcon icon={faHeart} onClick={() => handleLike(recipeId, 'user', type === 'myRecipe' ? '' : userId)}/>
             }
 
           </button>

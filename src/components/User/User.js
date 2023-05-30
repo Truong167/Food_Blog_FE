@@ -8,9 +8,10 @@ import Button from '../UI/Button/Button'
 
 import classes from './User.module.css'
 import Backdrop from '../UI/Modal/BackDrop'
+import { useRecipesContext } from '../../contexts/recipeContext'
 
 const User = () => {
-    const {authState, getUser} = useAuth()
+    const {authState, getUser, unFollowUser, followUser} = useAuth()
     const [isOpen, setIsOpen] = useState(false)
     const [type, setType] = useState()
 
@@ -32,11 +33,21 @@ const User = () => {
         setType('follow')
     }
 
+    
     const {id} = useParams()
     let check = true
     if(authState.user.userId === parseInt(id)){
         check = false
     }
+
+    const handleFollow = async () => {
+        await followUser(id)
+    }
+
+    const handleUnFollow = async () => {
+        await unFollowUser(id)
+    }
+
     useEffect(() => {
         getUser(id)
     }, [id])
@@ -55,15 +66,15 @@ const User = () => {
                         <h3>{authState.userInfor.fullName}</h3>
                         <div className={classes.btn}>
                             {check && (authState.userInfor.isFollow ? 
-                                        <Button color='#FF9933'>Đang theo dõi</Button> : 
-                                        <Button>Theo dõi</Button>
+                                        <Button color='#FF9933' onClick={handleUnFollow}>Đang theo dõi</Button> : 
+                                        <Button onClick={handleFollow}>Theo dõi</Button>
                                     )}    
                         </div>
                     </div>
                     <div className={classes.detail}>
                         <span><b>{authState.userInfor.countRecipe}</b> công thức</span>
-                        <span onClick={openFollow}><b>{authState.userInfor.countFollowed}</b> người theo dõi</span>
-                        <span onClick={openFollowing}><b>{authState.userInfor.countFollowing}</b> người đang theo dõi</span>
+                        <span onClick={!check ? openFollow : undefined}><b>{authState.userInfor.countFollowed}</b> người theo dõi</span>
+                        <span onClick={!check ? openFollowing : undefined}><b>{authState.userInfor.countFollowing}</b> người đang theo dõi</span>
                     </div>
                     <div className={classes.address} style={{marginTop: 20}}>Hiện đang sinh sống tại {authState.userInfor.address}</div>
                     <div className={classes.description}>
