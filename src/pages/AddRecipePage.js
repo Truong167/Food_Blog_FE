@@ -34,7 +34,7 @@ const initialStep = [
   }
 ]
 const AddRecipePage = () => {
-  const {createRecipe} = useRecipesContext()
+  const {createRecipe, fetchRecipePopular} = useRecipesContext()
   const [recipe, setRecipe] = useState(initialRecipe)
   const [ingredientChild, setIngredientChild] = useState(initialIngredient)
   const [stepChild, setStepChild] = useState(initialStep)
@@ -131,6 +131,7 @@ const AddRecipePage = () => {
     frmData.append("DetailIngredients", JSON.stringify(ingredientChild))
     const result = await createRecipe(frmData)
     if(result.success){
+      await fetchRecipePopular()
       toast.success('Thêm công thức thành công', {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: true

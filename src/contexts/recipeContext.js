@@ -314,6 +314,7 @@ const RecipeContextProvider = ({children}) => {
       fetchDataRecipeList,
       deleteRecipeList,
       fetchRecipeFollow,
+      fetchRecipePopular
     }
 
     return (
