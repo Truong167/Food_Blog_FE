@@ -4,6 +4,7 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import Tippy from '@tippyjs/react/headless';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
+import no_avatar from '../../../assets/images/no_avatar.png'
 
 import classes from './index.module.css'
 import { imageUrl } from '../../../utils/constant';
@@ -84,7 +85,7 @@ const User = (props) => {
             onClickOutside={handleClickOutSide}
         >
             <div onClick={handleClick} style={{cursor: 'pointer'}}>
-                <img src={`${imageUrl +  user.avatar}`} alt={user.fullName} className={classes["user-img"]}/>
+                <img src={user.avatar ? `${imageUrl +  user.avatar}` : `${no_avatar}`} alt={user.fullName} className={classes["user-img"]}/>
                 <span>{user.fullName}</span>
               </div>
         </Tippy>

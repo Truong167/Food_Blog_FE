@@ -8,6 +8,7 @@ import Button from '../UI/Button/Button'
 
 import classes from './User.module.css'
 import Backdrop from '../UI/Modal/BackDrop'
+import no_avatar from '../../assets/images/no_avatar.png'
 import { useRecipesContext } from '../../contexts/recipeContext'
 
 const User = () => {
@@ -59,7 +60,7 @@ const User = () => {
         {!authState.userInforLoading && 
             <div className={classes.container}>
                 <div className={classes.left}>
-                    <img src={`${imageUrl + authState.userInfor.avatar}`} alt={authState.userInfor.fullName}/>
+                    <img src={authState.userInfor.avatar ? `${imageUrl + authState.userInfor.avatar}` : `${no_avatar}`} alt={authState.userInfor.fullName}/>
                 </div>
                 <div className={classes.right}>
                     <div className={classes.header}>
