@@ -125,7 +125,7 @@ const Search = () => {
                 <button className={classes["btn-search"]}><FontAwesomeIcon icon={faMagnifyingGlass}/></button>
                 <input 
                     type="text" 
-                    placeholder='Gõ vào tên các nguyên liệu...'
+                    placeholder='Gõ vào tên công thức...'
                     ref={inputRef}
                     value={searchValue}
                     onChange={handleChange}
