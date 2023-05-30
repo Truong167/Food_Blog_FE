@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap"
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from "react"
 import useAuth from "../../hooks/useAuth"
-import { ToastContainer } from "react-toastify"
+import { ToastContainer, toast } from "react-toastify"
 
 const RegisterForm = () => {
 
