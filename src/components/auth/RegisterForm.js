@@ -3,6 +3,7 @@ import { Form } from "react-bootstrap"
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from "react"
 import useAuth from "../../hooks/useAuth"
+import { ToastContainer } from "react-toastify"
 
 const RegisterForm = () => {
 
@@ -23,14 +24,53 @@ const RegisterForm = () => {
     event.preventDefault()
     try {
       const registerData = await registerUser(registerForm)
-      console.log(registerData)
       if(registerData.success) {
         alert(registerData.message)
+        toast.success('Đăng ký thành công', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: true
+        })
         navigate('/')
       } else {
+        if(registerData.status === 418) {
+          toast.warning('Vui lòng nhập đầy đủ thông tin', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: true
+          })
+        } else if(registerData.status === 423) {
+          toast.warning('Tài khoản đã tồn tại', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: true
+          })
+        } 
+        else if(registerData.status === 421) {
+          toast.warning('Email không đúng định dạng', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: true
+          })
+        }
+        else if(registerData.status === 422) {
+          toast.warning('Email đã tồn tại', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: true
+          })
+        }
+        else if(registerData.status === 420) {
+          toast.warning('Mật khẩu phải ít nhất 6 ký tự bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: true
+          })
+        }
+        else if(registerData.status === 419) {
+          toast.warning('Mật khẩu không khớp', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: true
+          })
+        } 
+        
       }
     } catch (error) {
-      console.log(error + 'llalla')
+      console.log(error)
     }
   }
 
@@ -101,6 +141,8 @@ const RegisterForm = () => {
       </Button>
     </Link>
   </p>
+  <ToastContainer/>
+
     </>
   )
 }
